@@ -21,19 +21,18 @@ app.get("/",function(req,res){
 
       var options2={
             hour:"numeric",
-            minute:"numeric"
+            minute:"numeric",
       };
 
       var day=today.toLocaleDateString("en-US",options);
       var time=today2.toLocaleTimeString("en-US",options2);
 
       times.push(time);
-      console.log(times);
 
       res.render("index",{
             kindOfDay:day,
             newItems:items,
-            currTimes:time
+            currTimes:times
       });
 })
 
