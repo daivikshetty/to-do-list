@@ -5,7 +5,7 @@ const app=express();
 app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({extended:true}));
 
-var items=[];
+var items=[],times=[];
 
 app.get("/",function(req,res){
 
@@ -21,25 +21,26 @@ app.get("/",function(req,res){
 
       var options2={
             hour:"numeric",
-            minute:"numeric",
-            second:"numeric",
-            millisecond:"numeric"
-      }
+            minute:"numeric"
+      };
 
-      var day=today.toLocaleDateString("en-IN",options);
-      var time=today2.toLocaleTimeString("en-IN",options2);
+      var day=today.toLocaleDateString("en-US",options);
+      var time=today2.toLocaleTimeString("en-US",options2);
+
+      times.push(time);
+      console.log(times);
 
       res.render("index",{
             kindOfDay:day,
             newItems:items,
-            currTime:time
+            currTimes:time
       });
 })
 
 app.post("/",function(req,res){
       item=req.body.newItem;
       items.push(item);
-      console.log(time);
+      times.push()
       res.redirect("/");
 })
 
