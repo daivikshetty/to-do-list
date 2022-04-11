@@ -1,5 +1,8 @@
 const express=require("express");
 const bodyParser=require("body-parser");
+const date=require(__dirname+"/date.js");
+
+// console.log(date.getDay());          //add parenthisis for getting return statement
 
 const app=express();
 
@@ -7,32 +10,12 @@ app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));        //for loading css along with js and ejs in localhost
 
-var items=["Eat","Sleep","Code","Repeat"];
-var times=["12:00 AM","12:00 AM","12:00 AM","12:00 AM"];
+let items=["Eat","Sleep","Code","Repeat"];
+let workList=[];
+// var times=["12:00 AM","12:00 AM","12:00 AM","12:00 AM"];
 
 app.get("/",function(req,res){
-
-      var today=new Date();         //object of type date is created
-      // var today2=new Date();
-
-
-      var options={
-            weekday:"long",         //weekday is a keyword
-            day:"numeric",
-            month:"long"
-      };
-
-      // var options2={
-      //       hour:"numeric",
-      //       minute:"numeric"
-      //       // second:"numeric"     //for checking if the time is working
-      // };
-
-      var day=today.toLocaleDateString("en-US",options);
-      // var time=today2.toLocaleTimeString("en-US",options2);
-
-      // times.push(time);
-
+      let day=date.getDay();
       res.render("index",{
             kindOfDay:day,
             newItems:items,
@@ -41,10 +24,33 @@ app.get("/",function(req,res){
 })
 
 app.post("/",function(req,res){
-      item=req.body.newItem;
-      items.push(item);
-      // times.push()
-      res.redirect("/");
+      let item=req.body.newItem;
+
+      if(req.body.index === "Work List"){
+            workList.push(item);
+            res.redirect("/work")
+      }
+      else{
+            items.push(item);
+            res.redirect("/");
+      }
+})
+
+app.get("/work",function(req,res){
+      res.render("index",{
+            kindOfDay:"Work List",
+            newItems:workList
+      })
+})
+
+app.post("/work",function(req,res){
+      let item=req.body.newItem;
+      workList.push(item);
+      res.redirect("/work");
+})
+
+app.get("/about",function(req,res){
+      res.render("about");
 })
 
 app.listen(5500,function(){

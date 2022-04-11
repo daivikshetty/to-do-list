@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-      <meta charset="UTF-8">
-      <link rel="stylesheet" href="css/styles.css">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>To-Do List</title>
-</head>
-<body>
+<%- include("header") -%>
 
       <div class="box" id="heading">
             <h1><%=kindOfDay%></h1>
@@ -22,7 +13,7 @@
 
             <form action="/" method="post">
                   <input type="text" name="newItem" placeholder="New Item" autocomplete="off">
-                  <button type="submit" name="button">+</button>
+                  <button type="submit" name="index" value="<%=kindOfDay%>">+</button>
             </form>
       </div>
             
@@ -36,7 +27,5 @@
             
       <!-- </ul> -->
 
-      
+<%- include("footer") -%>
 
-</body>
-</html>
