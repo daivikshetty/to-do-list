@@ -98,7 +98,7 @@ app.post("/delete",function(req,res){
 //       res.redirect("/work");
 // })
 
-const listSchema={
+const listSchema={ 
       name:String,
       items:[itemsSchema]
 }
