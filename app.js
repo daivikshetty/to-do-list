@@ -30,7 +30,7 @@ const def4=new Item({name:"Repeat"});
 
 let defaultItems=[def1,def2,def3,def4];
 
-var flag=0
+var flag=0;
 
 
 app.get("/",function(req,res){
@@ -48,7 +48,8 @@ app.get("/",function(req,res){
                   flag=1;
                   let day=date.getDay();
                   res.render("index",{
-                        kindOfDay:day,
+                        // kindOfDay:day,
+                        kindOfDay:"Main",
                         newItems:foundItems,
                         // currTimes:times
                   });
@@ -108,22 +109,24 @@ const List=mongoose.model("List",listSchema);
 app.get("/:customLists",function(req,res){
       const customListName=req.params.customLists;
       // console.log(req.params.customLists);
-      
 
       List.findOne({name:customListName},function(err,foundList){
             if(!err){
-                  if(!foundList){
-                        //create new list
+                  if(!foundList){// console.log("Found List");
                         const list=new List({
                         name:customListName,
                         items:defaultItems
                   });
                   list.save();
+                  res.redirect("/" + customListName)
                   }
                   else{
-                        //display existing list
+                        // console.log("Found List");
                         res.render("list",{listTitle:foundList.name,newListItems:foundList.items})
                   }
+            }
+            else{
+                  console.log(err);
             }
       })
 })
