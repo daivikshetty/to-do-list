@@ -3,7 +3,7 @@ const bodyParser=require("body-parser");
 const date=require(__dirname+"/date.js");
 const mongoose=require("mongoose");
 
-mongoose.connect("mongodb://localhost:27017/todolistDB",{useNewUrlParser:true});
+mongoose.connect("mongodb+srv://daivik_shetty:todotodotodo123098@cluster001.1hocejh.mongodb.net/todolistDB",{useNewUrlParser:true});
 
 // console.log(date.getDay());          //add parenthisis for getting return statement
 
@@ -57,7 +57,8 @@ app.get("/",function(req,res){
       });
       
       
-})
+});
+
 
 app.post("/",function(req,res){
       let itemName=req.body.newItem;
@@ -86,25 +87,13 @@ app.post("/delete",function(req,res){
       res.redirect("/");
 })
 
-// app.get("/work",function(req,res){
-//       res.render("index",{
-//             kindOfDay:"Work List",
-//             newItems:workList
-//       })
-// })
-
-// app.post("/work",function(req,res){
-//       let item=req.body.newItem;
-//       workList.push(item);
-//       res.redirect("/work");
-// })
-
 const listSchema={ 
       name:String,
       items:[itemsSchema]
 }
 
 const List=mongoose.model("List",listSchema);
+
 
 app.get("/:customLists",function(req,res){
       const customListName=req.params.customLists;
@@ -129,7 +118,7 @@ app.get("/:customLists",function(req,res){
                   console.log(err);
             }
       })
-})
+});
 
 app.get("/about",function(req,res){
       res.render("about");
