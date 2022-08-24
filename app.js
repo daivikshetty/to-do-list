@@ -124,6 +124,11 @@ app.get("/about",function(req,res){
       res.render("about");
 })
 
-app.listen(5500,function(){
-      console.log("Server 5500 up and running...");
-})
+
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 5500;
+}
+app.listen(port,function(){
+      console.log("App up and running...");
+});
